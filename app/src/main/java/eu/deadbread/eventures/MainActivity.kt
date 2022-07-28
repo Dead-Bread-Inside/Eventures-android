@@ -3,33 +3,24 @@ package eu.deadbread.eventures
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import eu.deadbread.eventures.ui.map.GoogleMaps
+import com.google.android.gms.location.LocationServices
+import eu.deadbread.eventures.ui.screen.MapScreen
 import eu.deadbread.eventures.ui.theme.EventuresTheme
+import eu.deadbread.eventures.viewmodel.MapScreenViewModel
 
 class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            EventuresTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    GoogleMaps()
-                }
-            }
+    init {
+        Thread.setDefaultUncaughtExceptionHandler { t, e ->
+            throw e
         }
     }
-}
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    EventuresTheme {
-        GoogleMaps()
+    private val mapScreenViewModel by lazy {
+        MapScreenViewModel(LocationServices.getFusedLocationProviderClient(this))
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent { EventuresTheme { MapScreen(mapScreenViewModel) } }
     }
 }
