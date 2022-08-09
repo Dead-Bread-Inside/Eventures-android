@@ -5,9 +5,10 @@ import androidx.compose.runtime.Composable
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
+import eu.deadbread.eventures.entities.Location
 
 data class MapMarker(
-    val location: MapLocation,
+    val location: Location,
     val title: String? = null,
     val snippet: String? = null,
     val icon: MapMarkerIcon? = null

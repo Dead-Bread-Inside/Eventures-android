@@ -6,6 +6,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapUiSettings
@@ -24,7 +25,8 @@ fun GoogleMaps(mapScreenViewModel: MapScreenViewModel, mapsScope: @Composable ()
 
     LaunchedEffect(mapScreenViewModel.deviceLocation) {
         coroutineScope.launch {
-            cameraPositionState.animate(CameraUpdateFactory.newLatLngZoom(mapScreenViewModel.deviceLocation, 16f), 1000)
+            val latLng = mapScreenViewModel.deviceLocation.run { LatLng(latitude, longitude) }
+            cameraPositionState.animate(CameraUpdateFactory.newLatLngZoom(latLng, 16f), 1000)
         }
     }
 
