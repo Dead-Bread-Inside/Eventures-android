@@ -16,7 +16,6 @@ import androidx.compose.ui.platform.LocalContext
 import com.google.accompanist.permissions.MultiplePermissionsState
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import eu.deadbread.eventures.R
-import eu.deadbread.eventures.ui.map.common.MapLocation
 import eu.deadbread.eventures.ui.map.common.MapMarker
 import eu.deadbread.eventures.ui.map.common.MapMarkerIcon
 import eu.deadbread.eventures.ui.map.common.MapMarkerSource
@@ -35,12 +34,14 @@ fun MapScreen(mapScreenViewModel: MapScreenViewModel) = Scaffold(
         GoogleMaps(mapScreenViewModel) {
             val source = MapMarkerSource.Resource(R.drawable.ic_map_marker_debug)
 
-            MapMarker(
-                location = MapLocation(54.69274175930723, 25.2724398070343),
-                title = "BaltasTiltas",
-                snippet = "Marker  in Vilnius",
-                icon = MapMarkerIcon.Builder(LocalContext.current).build(source)
-            ).addMarkerToGoogleMaps()
+            mapScreenViewModel.eventsInArea.map { event ->
+                MapMarker(
+                    location = event.info.location,
+                    title = event.info.title,
+                    snippet = event.info.description,
+                    icon = MapMarkerIcon.Builder(LocalContext.current).build(source)
+                )
+            }.forEach { it.addMarkerToGoogleMaps() }
         }
     }
 }
