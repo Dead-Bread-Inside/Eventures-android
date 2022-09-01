@@ -4,5 +4,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 
 object EShape {
     val TextButtonShape = RoundedCornerShape(EDimension.radius)
+    val ButtonShape = RoundedCornerShape(EDimension.radius)
     val FloatingButtonShape = RoundedCornerShape(100)
 }
