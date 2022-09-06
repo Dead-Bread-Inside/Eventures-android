@@ -62,7 +62,7 @@ fun EventuresTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,
+        typography = ETypography.MaterialTypography,
         content = content
     )
 }
